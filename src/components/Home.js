@@ -48,7 +48,7 @@ const Home = () => {
   ];
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="text-center text-white font-semibold">Post Feed</div>
+      <div className="text-center text-white font-bold">Post Feed</div>
       <SimpleBar className="flex-grow h-0 ml-5 mr-1 mb-4 pr-4">
         {posts.map((post, i) => (
           <div key={`post-${i}`} className="bg-blue-700 rounded-xl mb-2 p-4">
@@ -66,7 +66,10 @@ const Home = () => {
         <div style={{ minWidth: 740 }} className="flex items-center px-5 text-white">
           <div className="flex select-none font-semibold text-sm">
             {generalActions.map((action, i) => (
-              <div className="active:bg-blue-700 mr-2 bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center">
+              <div
+                key={`bottom-panel-btn-${i}`}
+                className="active:bg-blue-700 mr-2 bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
+              >
                 <img src={action.icon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
                 <div className="whitespace-nowrap">{action.title}</div>
               </div>

@@ -4,6 +4,7 @@ import TasksIcon from "icons/Tasks.png";
 import ProfileIcon from "icons/Profile.png";
 import DiscordIcon from "icons/Discord.png";
 import SettingsIcon from "icons/Settings.png";
+import AnalyticsIcon from "icons/Analytics.png";
 
 const items = [
   { title: "Home", icon: HomeIcon },
@@ -11,6 +12,7 @@ const items = [
   { title: "Profile", icon: ProfileIcon },
   { title: "Discord", icon: DiscordIcon },
   { title: "Settings", icon: SettingsIcon },
+  { title: "Analytics", icon: AnalyticsIcon },
 ];
 
 const Menu = ({ page, setPage, closeMenu = () => {} }) => {

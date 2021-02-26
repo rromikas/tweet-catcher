@@ -1,24 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import WarningIcon from "icons/Warning.png";
 
-const ProfileForm = () => {
+const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => {
   const formik = useFormik({
-    initialValues: {
+    enableReinitialize: true,
+    initialValues: initialData || {
+      create: true,
+      profile_name: "Profile Name",
       first_name: "",
       last_name: "",
       email: "",
-      credit_card: "",
+      card_number: "",
       postal_code: "",
       exp_month: "",
       exp_year: "",
     },
+    onSubmit: (values) => {
+      if (values.create) {
+        onCreateSubmit(values);
+      } else {
+        onEditSubmit(values);
+      }
+    },
   });
+
   return (
-    <div className="w-full h-full flex justify-center items-center bg-blue-700 bg-opacity-10">
-      <div className="max-w-2xl w-full mx-auto py-3 px-20 rounded-xl bg-blue-1000 text-white font-semibold">
-        <div className="text-xl text-center mb-8">Create A Profile</div>
-        <form className="mx-auto">
+    <div className="w-full h-full flex  bg-blue-700 bg-opacity-10 overflow-auto" onClick={onClose}>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="max-w-2xl w-full m-auto py-3 px-20 rounded-xl bg-blue-1000 text-white font-semibold"
+      >
+        <div className="text-xl text-center mb-8">
+          {formik.values.create ? "Create Profile" : "Edit Profile"}
+        </div>
+        <form className="mx-auto" onSubmit={formik.handleSubmit}>
           <div className="flex mb-3">
             <div className="w-1/2 pr-2">
               <div className="flex mb-2 items-center">
@@ -29,6 +45,8 @@ const ProfileForm = () => {
               </div>
               <input
                 type="text"
+                onChange={formik.handleChange}
+                value={formik.values.first_name}
                 className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
                 name="first_name"
               ></input>
@@ -41,6 +59,8 @@ const ProfileForm = () => {
                 ) : null}
               </div>
               <input
+                onChange={formik.handleChange}
+                value={formik.values.last_name}
                 type="text"
                 className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
                 name="last_name"
@@ -55,6 +75,8 @@ const ProfileForm = () => {
               ) : null}
             </div>
             <input
+              onChange={formik.handleChange}
+              value={formik.values.email}
               type="email"
               className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
               name="email"
@@ -64,14 +86,16 @@ const ProfileForm = () => {
             <div className="w-2/3 pr-2">
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Credit Card</div>
-                {formik.errors.credit_card && formik.touched.credit_card ? (
+                {formik.errors.card_number && formik.touched.card_number ? (
                   <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
                 ) : null}
               </div>
               <input
+                onChange={formik.handleChange}
+                value={formik.values.card_number}
                 type="text"
                 className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
-                name="credit_card"
+                name="card_number"
               ></input>
             </div>
             <div className="w-1/3 pl-2">
@@ -82,6 +106,8 @@ const ProfileForm = () => {
                 ) : null}
               </div>
               <input
+                onChange={formik.handleChange}
+                value={formik.values.postal_code}
                 type="text"
                 className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
                 name="postal_code"
@@ -97,6 +123,8 @@ const ProfileForm = () => {
                 ) : null}
               </div>
               <input
+                onChange={formik.handleChange}
+                value={formik.values.exp_month}
                 type="text"
                 className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
                 name="exp_month"
@@ -110,6 +138,8 @@ const ProfileForm = () => {
                 ) : null}
               </div>
               <input
+                onChange={formik.handleChange}
+                value={formik.values.exp_year}
                 type="text"
                 className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
                 name="exp_year"
@@ -123,6 +153,8 @@ const ProfileForm = () => {
                 ) : null}
               </div>
               <input
+                onChange={formik.handleChange}
+                value={formik.values.cvc}
                 type="text"
                 className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
                 name="cvc"
@@ -130,12 +162,15 @@ const ProfileForm = () => {
             </div>
           </div>
           <div className="flex justify-center select-none">
-            <div className="active:bg-blue-570 mr-2 bg-blue-500 hover:bg-blue-550 rounded-2xl px-12 text-xl py-3 transition cursor-pointer">
+            <div className="active:bg-blue-502 mr-2 bg-blue-500 hover:bg-blue-501 rounded-2xl px-12 text-xl py-3 transition cursor-pointer">
               Discord
             </div>
-            <div className="active:bg-blue-570 mr-2 bg-blue-500 hover:bg-blue-550 rounded-2xl px-12 text-xl py-3 transition cursor-pointer">
-              Create
-            </div>
+            <button
+              type="submit"
+              className="font-semibold outline-none active:bg-blue-502 mr-2 bg-blue-500 hover:bg-blue-501 rounded-2xl px-12 text-xl py-3 transition cursor-pointer"
+            >
+              {formik.values.create ? "Create" : "Save"}
+            </button>
           </div>
         </form>
       </div>

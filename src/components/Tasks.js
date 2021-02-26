@@ -83,7 +83,7 @@ const Tasks = () => {
 
   return (
     <div className="w-full h-full flex flex-col text-white">
-      <div className="text-center mb-2 font-semibold">Manage Your Tasks</div>
+      <div className="text-center mb-2 font-bold">Manage Your Tasks</div>
       <SimpleBar
         ref={headerRef}
         className="w-full px-5"
@@ -101,25 +101,28 @@ const Tasks = () => {
       </SimpleBar>
       <SimpleBar ref={bodyRef} className="flex-grow h-0 ml-5 mr-1 mb-4 pr-4">
         {tasks.map((task, i) => (
-          <div style={{ minWidth: 700 }}>
+          <div style={{ minWidth: 700 }} key={`task-${i}`}>
             <div className="flex bg-blue-700 mb-2 rounded py-2" key={`task-${i}`}>
               <div className="flex flex-grow text-center">
                 <div className="w-3/12">{task.user}</div>
-                <div className={`${task.retweet ? "text-green" : "text-red"} capitalize w-3/12`}>
+                <div
+                  className={`${task.retweet ? "text-green" : "text-red-500"} capitalize w-3/12`}
+                >
                   {task.retweet.toString()}
                 </div>
                 <div className="w-3/12">{task.delay}</div>
                 <div
                   className={`${
-                    task.status === "running" ? "text-green" : "text-red"
+                    task.status === "running" ? "text-green" : "text-red-500"
                   } capitalize w-3/12`}
                 >
                   {task.status}
                 </div>
               </div>
               <div className="flex w-48 justify-center select-none">
-                {taskActions.map((action) => (
+                {taskActions.map((action, j) => (
                   <div
+                    key={`task-${0}-action-${j}`}
                     onClick={action.onClick(i)}
                     className="rounded w-7 h-7 p-1.5 active:bg-blue-800 bg-blue-800 active hover:bg-blue-900 hover:scale-105 transform cursor-pointer transition-all flex items-center justify-center mr-2"
                   >
@@ -135,7 +138,10 @@ const Tasks = () => {
         <div style={{ minWidth: 870 }} className="flex items-center px-5">
           <div className="flex select-none font-semibold text-sm">
             {generalActions.map((action, i) => (
-              <div className="active:bg-blue-700 mr-2 bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center">
+              <div
+                key={`bottom-panel-btn-${i}`}
+                className="active:bg-blue-700 mr-2 bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
+              >
                 <img src={action.icon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
                 <div className="whitespace-nowrap">{action.title}</div>
               </div>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import "react-perfect-scrollbar/dist/css/styles.css";
 import "simplebar/dist/simplebar.min.css";
 import Navbar from "components/Navbar";
 import Menu from "components/Menu";
 import Home from "components/Home";
 import Tasks from "components/Tasks";
 import Drawer from "@material-ui/core/Drawer";
+import Profile from "components/Profile";
+import Discord from "components/Discord";
 
 const GetPage = (pageIndex) => {
   switch (pageIndex) {
@@ -13,6 +14,10 @@ const GetPage = (pageIndex) => {
       return <Home></Home>;
     case 1:
       return <Tasks></Tasks>;
+    case 2:
+      return <Profile></Profile>;
+    case 3:
+      return <Discord></Discord>;
   }
 };
 
